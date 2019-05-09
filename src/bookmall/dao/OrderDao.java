@@ -63,7 +63,7 @@ public class OrderDao {
 
 			conn = DBUtil.getConnection();
 
-			String sql = "select o.businesscode as businesscode,m.name as memberName,m.email as memberEmail,o.payment as payment,  o.destination as destination from member m, orders o, order_book ob, book b,status s where m.no = o.member_no and o.no = ob.order_no and ob.book_no = b.no and o.status_no = s.no and m.no = ?";
+			String sql = "select o.businesscode as businesscode,m.name as memberName,m.email as memberEmail,o.payment as payment,  o.destination as destination from member m, orders o, order_book ob, book b,status s where m.no = o.member_no and o.no = ob.order_no and ob.book_no = b.no and o.status_no = s.no and m.no = ? order by o.businesscode";
 			pstat = conn.prepareStatement(sql);
 			pstat.setString(1, membernum + "");
 
@@ -111,7 +111,7 @@ public class OrderDao {
 
 			conn = DBUtil.getConnection();
 
-			String sql = "select (select title from book where no = ob.book_no) as booktitle,book_no,count(*) as cnt from order_book ob group by book_no";
+			String sql = "select (select title from book where no = ob.book_no) as booktitle,book_no,count(*) as cnt from order_book ob group by book_no order by book_no";
 			pstat = conn.prepareStatement(sql);
 
 			rs = pstat.executeQuery();

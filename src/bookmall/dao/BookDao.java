@@ -62,7 +62,7 @@ public class BookDao {
 
 			conn = DBUtil.getConnection();
 
-			String sql = "select no,title,price,(select name from category where no = b.category_no) as category from book b";
+			String sql = "select no,title,price,(select name from category where no = b.category_no) as category from book b order by no";
 			pstat = conn.prepareStatement(sql);
 			
 			rs = pstat.executeQuery();

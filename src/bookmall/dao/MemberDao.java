@@ -61,7 +61,7 @@ public class MemberDao {
 
 			conn = DBUtil.getConnection();
 
-			String sql = "select no,name,tel,email,passwd from member";
+			String sql = "select no,name,tel,email,passwd from member order by no";
 			pstat = conn.prepareStatement(sql);
 			
 			rs = pstat.executeQuery();

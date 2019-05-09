@@ -62,7 +62,7 @@ public class CategoryDao {
 
 			conn = DBUtil.getConnection();
 
-			String sql = "select no,name from category";
+			String sql = "select no,name from category order by no";
 			pstat = conn.prepareStatement(sql);
 			
 			rs = pstat.executeQuery();

@@ -105,7 +105,7 @@ public class CartDao {
 
 			conn = DBUtil.getConnection();
 
-			String sql = "select b.title as bookname,c.cnt as cnt,c.cnt*price as totalprice from cart c, book b, member m where c.book_no = b.no and	c.member_no = m.no and c.member_no = ?";
+			String sql = "select b.title as bookname,c.cnt as cnt,c.cnt*price as totalprice from cart c, book b, member m where c.book_no = b.no and	c.member_no = m.no and c.member_no = ? order by b.title";
 			pstat = conn.prepareStatement(sql);
 			pstat.setString(1, membernum + "");
 
