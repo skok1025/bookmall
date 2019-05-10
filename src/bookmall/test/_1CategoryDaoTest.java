@@ -2,7 +2,7 @@ package bookmall.test;
 
 import bookmall.dao.CategoryDao;
 
-public class CategoryDaoTest {
+public class _1CategoryDaoTest {
 	
 	public static void main(String[] args) {
 		System.out.println("카테고리 insert 성공: "+categoryinsert("소설"));

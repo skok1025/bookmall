@@ -105,7 +105,7 @@ public class CartDao {
 
 			conn = DBUtil.getConnection();
 
-			String sql = "select b.title as bookname,c.cnt as cnt,c.cnt*price as totalprice from cart c, book b, member m where c.book_no = b.no and	c.member_no = m.no and c.member_no = ? order by b.title";
+			String sql = "select b.title as bookname,c.cnt as cnt,format(c.cnt*price,0) as totalprice from cart c, book b, member m where c.book_no = b.no and	c.member_no = m.no and c.member_no = ? order by b.title";
 			pstat = conn.prepareStatement(sql);
 			pstat.setString(1, membernum + "");
 
@@ -115,7 +115,7 @@ public class CartDao {
 				CartVo vo = new CartVo();
 				vo.setBookName(rs.getString("bookname"));
 				vo.setCnt(rs.getInt("cnt"));
-				vo.setTotalPrice(rs.getInt("totalprice"));
+				vo.setTotalPrice(rs.getString("totalprice"));
 
 				result.add(vo);
 			}
@@ -140,6 +140,47 @@ public class CartDao {
 
 		return result;
 
+	}
+
+	public static String getTotalPrice(int membernum) {
+		String result = null;
+
+		Connection conn = null;
+		PreparedStatement pstat = null;
+		ResultSet rs = null;
+		try {
+
+			conn = DBUtil.getConnection();
+
+			String sql = "select format(sum(price*cnt),0) from cart c, book b where c.book_no = b.no and c.member_no=?";
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, membernum + "");
+
+			rs = pstat.executeQuery();
+
+			if (rs.next()) {
+				result = rs.getString(1);
+			}
+
+		} catch (SQLException e) {
+			System.out.println("error: " + e);
+		} finally {
+			try {
+
+				if (pstat != null) {
+					pstat.close();
+				}
+
+				if (conn != null) {
+					conn.close();
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return result;
 	}
 
 }

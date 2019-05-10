@@ -11,23 +11,32 @@ public class OrdersVo {
 	private String memberEmail;
 	private String status;
 	
-	private int payment;
+	private String payment;
 	private Long bookNo;
 	private int cnt;
 	
 	
+	private int ordercnt;
+	private String firstbooktitle;
 	
+	
+	public int getOrdercnt() {
+		return ordercnt;
+	}
+	public void setOrdercnt(int ordercnt) {
+		this.ordercnt = ordercnt;
+	}
+	public String getFirstbooktitle() {
+		return firstbooktitle;
+	}
+	public void setFirstbooktitle(String firstbooktitle) {
+		this.firstbooktitle = firstbooktitle;
+	}
 	public int getCnt() {
 		return cnt;
 	}
 	public void setCnt(int cnt) {
 		this.cnt = cnt;
-	}
-	public int getPayment() {
-		return payment;
-	}
-	public void setPayment(int payment) {
-		this.payment = payment;
 	}
 	
 	public String getMemberName() {
@@ -84,13 +93,19 @@ public class OrdersVo {
 	public void setBookNo(Long bookNo) {
 		this.bookNo = bookNo;
 	}
+	public String getPayment() {
+		return payment;
+	}
+	public void setPayment(String payment) {
+		this.payment = payment;
+	}
 	@Override
 	public String toString() {
 		return "OrdersVo [no=" + no + ", businesscode=" + businesscode + ", destination=" + destination + ", memberNo="
 				+ memberNo + ", statusNo=" + statusNo + ", memberName=" + memberName + ", memberEmail=" + memberEmail
-				+ ", status=" + status + ", payment=" + payment + ", bookNo=" + bookNo + ", cnt=" + cnt + "]";
+				+ ", status=" + status + ", payment=" + payment + ", bookNo=" + bookNo + ", cnt=" + cnt + ", ordercnt="
+				+ ordercnt + ", firstbooktitle=" + firstbooktitle + "]";
 	}
-	
 	
 	
 	

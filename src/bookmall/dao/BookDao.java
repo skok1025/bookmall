@@ -26,7 +26,7 @@ public class BookDao {
 			String sql = "insert into book values(null,?,?,?)";
 			pstat = conn.prepareStatement(sql);
 			pstat.setString(1, vo.getTitle());
-			pstat.setLong(2, vo.getPrice());
+			pstat.setString(2, vo.getPrice());
 			pstat.setLong(3, vo.getCategoryNo());
 			
 			int count = pstat.executeUpdate();
@@ -62,7 +62,7 @@ public class BookDao {
 
 			conn = DBUtil.getConnection();
 
-			String sql = "select no,title,price,(select name from category where no = b.category_no) as category from book b order by no";
+			String sql = "select no,title,format(price,0),(select name from category where no = b.category_no) as category from book b order by no";
 			pstat = conn.prepareStatement(sql);
 			
 			rs = pstat.executeQuery();
@@ -71,7 +71,7 @@ public class BookDao {
 				BookVo vo = new BookVo();
 				vo.setNo(rs.getLong(1));
 				vo.setTitle(rs.getString(2));
-				vo.setPrice(rs.getInt(3));
+				vo.setPrice(rs.getString(3));
 				vo.setCategory(rs.getString(4));
 				
 				

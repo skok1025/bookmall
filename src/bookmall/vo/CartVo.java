@@ -9,20 +9,21 @@ public class CartVo {
 	private int cnt;
 	
 	private String bookName;
-	private int totalPrice;
+	private String totalPrice;
 	
+	public String getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(String totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 	public String getBookName() {
 		return bookName;
 	}
 	public void setBookName(String bookName) {
 		this.bookName = bookName;
 	}
-	public int getTotalPrice() {
-		return totalPrice;
-	}
-	public void setTotalPrice(int totalPrice) {
-		this.totalPrice = totalPrice;
-	}
+	
 	public Long getNo() {
 		return no;
 	}

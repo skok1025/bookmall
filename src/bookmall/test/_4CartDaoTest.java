@@ -3,7 +3,7 @@ package bookmall.test;
 import bookmall.dao.CartDao;
 import bookmall.vo.CartVo;
 
-public class CartDaoTest {
+public class _4CartDaoTest {
 	
 	public static void main(String[] args) {
 		System.out.println("카트 insert 성공: "+cartinsert(1L, 1L, 2));

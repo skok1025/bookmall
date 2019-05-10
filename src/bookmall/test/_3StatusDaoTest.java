@@ -2,7 +2,7 @@ package bookmall.test;
 
 import bookmall.dao.StatusDao;
 
-public class StatusDaoTest {
+public class _3StatusDaoTest {
 	public static void main(String[] args) {
 		System.out.println("상태 insert 성공: "+statusinsert("출고 준비"));
 		System.out.println("상태 insert 성공: "+statusinsert("출고 완료"));

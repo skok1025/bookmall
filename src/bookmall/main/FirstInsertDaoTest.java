@@ -1,12 +1,14 @@
 package bookmall.main;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import bookmall.dao.BookDao;
 import bookmall.dao.CartDao;
 import bookmall.dao.CategoryDao;
 import bookmall.dao.MemberDao;
 import bookmall.dao.OrderDao;
 import bookmall.dao.StatusDao;
-import bookmall.util.OrderBookDao;
 import bookmall.vo.BookVo;
 import bookmall.vo.CartVo;
 import bookmall.vo.MemberVo;
@@ -28,9 +30,9 @@ public class FirstInsertDaoTest {
 		System.out.println("멤버 insert 성공:"+memberinsert("유서정", "010-2626-8234", "uscasc@naver.com", "1234"));
 		System.out.println("멤버 입력완료");
 
-		System.out.println("책 insert 성공:"+bookinsert("햣키엔 수필", 15000, 2L));
-		System.out.println("책 insert 성공:"+bookinsert("너의 췌장을 먹고 싶어", 13800, 1L));
-		System.out.println("책 insert 성공:"+bookinsert("스페인 예술로 걷다", 17600, 6L));
+		System.out.println("책 insert 성공:"+bookinsert("햣키엔 수필", "15000", 2L));
+		System.out.println("책 insert 성공:"+bookinsert("너의 췌장을 먹고 싶어", "13800", 1L));
+		System.out.println("책 insert 성공:"+bookinsert("스페인 예술로 걷다", "17600", 6L));
 		System.out.println("책 입력완료");
 
 		System.out.println("카트 insert 성공: "+cartinsert(1L, 1L, 2));
@@ -50,21 +52,38 @@ public class FirstInsertDaoTest {
 
 		Long orderno = OrderDao.getCurrentOrderNo();
 		Long bookNo = 1L;
+		Long bookNo2 = 2L;
 		int cnt = 2;
 		
-		System.out.println("주문2 insert 성공:" + orderbookinsert(orderno, bookNo, cnt));
+		System.out.println("주문2 insert 성공(1):" + orderbookinsert(orderno, bookNo, cnt));
+		System.out.println("주문2 insert 성공(2):" + orderbookinsert(orderno, bookNo2, cnt));
 		
-		orderpaymentupdate(orderno,bookNo, cnt);
-	}
-
-	private static void orderpaymentupdate(Long orderno, Long bookNo, int cnt) {
-		OrdersVo vo = new OrdersVo();
-		vo.setNo(orderno);
+		// 사용자가 입력한 값
+		List<OrderBookVo> orderBookList = new ArrayList<OrderBookVo>();
+		OrderBookVo vo = new OrderBookVo();
+		vo.setOrderNo(orderno);
 		vo.setBookNo(bookNo);
 		vo.setCnt(cnt);
 		
-		new OrderDao().orderpaymentupdate(vo);
+		orderBookList.add(vo);
+		
+		OrderBookVo vo2 = new OrderBookVo();
+		vo2.setOrderNo(orderno);
+		vo2.setBookNo(bookNo2);
+		vo2.setCnt(cnt);
+		
+		orderBookList.add(vo2);
+		
+		System.out.println("주문2 리스트방식 insert 성공:"+ orderbookinsert(orderBookList));
+		
+		//orderpaymentupdate(orderno,bookNo, cnt); // 사용자 모르게 해야함
 	}
+
+	private static Boolean orderbookinsert(List<OrderBookVo> orderBookList) {
+		return new OrderDao().insertOrderBook(orderBookList);
+	}
+
+	
 
 	public static Boolean categoryinsert(String name) {
 		return new CategoryDao().insert(name);
@@ -80,7 +99,7 @@ public class FirstInsertDaoTest {
 		return new MemberDao().insert(vo);
 	}
 
-	public static Boolean bookinsert(String title, int price, Long categoryNo) {
+	public static Boolean bookinsert(String title, String price, Long categoryNo) {
 		BookVo vo = new BookVo();
 		vo.setTitle(title);
 		vo.setPrice(price);
@@ -119,7 +138,9 @@ public class FirstInsertDaoTest {
 		vo.setBookNo(bookNo);
 		vo.setCnt(cnt);
 		
-		return new OrderBookDao().insert(vo);
+		return new OrderDao().orderbookinsert(vo);
 	}
+	
+
 
 }
