@@ -149,7 +149,7 @@ public class OrderDao {
 
 			conn = DBUtil.getConnection();
 
-			String sql = "select distinct o.businesscode as businesscode,m.name as memberName,m.email as memberEmail,format(o.payment,0) as payment,  o.destination as destination, (select sum(cnt) from order_book where order_no = o.no) as ordercnt, (select title from book where no = (select book_no from order_book where order_no = o.no order by no limit 1)) as firstbooktitle from member m, orders o, order_book ob, book b,status s where m.no = o.member_no and o.no = ob.order_no and ob.book_no = b.no and o.status_no = s.no and m.no = ? order by o.businesscode";
+			String sql = "select distinct o.businesscode as businesscode,m.name as memberName,m.email as memberEmail,format(o.payment,0) as payment,o.destination as destination,(select sum(cnt) from order_book where order_no = o.no) as ordercnt,(select title from book where no = (select book_no from order_book where order_no = o.no order by no limit 1)) as firstbooktitle,(select name from status where no = o.status_no) as status from member m, orders o, order_book ob, book b,status s where m.no = o.member_no and o.no = ob.order_no and ob.book_no = b.no and o.status_no = s.no and m.no = ? order by o.businesscode";
 			pstat = conn.prepareStatement(sql);
 			pstat.setString(1, membernum + "");
 
@@ -164,6 +164,7 @@ public class OrderDao {
 				vo.setDestination(rs.getString(5));
 				vo.setOrdercnt(rs.getInt(6));
 				vo.setFirstbooktitle(rs.getString(7));
+				vo.setStatus(rs.getString(8));
 				
 				result.add(vo);
 			}

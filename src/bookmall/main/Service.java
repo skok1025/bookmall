@@ -99,12 +99,12 @@ public class Service {
 		UI.listBar();
 		// 도서제목, 수량, 가격
 		UI.menuTitle(MemberDao.get(membernum) + "의 주문 리스트");
-		UI.header(new String[] { "주문코드","상품명" ,"고객명", "이메일", "결제금액", "배송지" });
+		UI.header(new String[] { "주문코드","상품명" ,"고객명", "이메일", "결제금액", "배송지", "주문상태" });
 		if (!list.isEmpty()) {
 			for (OrdersVo vo : list) {
 
-				System.out.printf("%s\t%s\t%s\t%s\t%s원\t%s\n", vo.getBusinesscode(),vo.getFirstbooktitle()+" 외"+(vo.getOrdercnt()-1)+" 권", vo.getMemberName(),
-						vo.getMemberEmail(), vo.getPayment(), vo.getDestination());
+				System.out.printf("%s\t%s\t%s\t%s\t%s원\t%s\t%s\n", vo.getBusinesscode(),vo.getFirstbooktitle()+" 외"+(vo.getOrdercnt()-1)+" 권", vo.getMemberName(),
+						vo.getMemberEmail(), vo.getPayment(), vo.getDestination(), vo.getStatus());
 
 			}
 		} else {
